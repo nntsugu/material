@@ -1,0 +1,18 @@
+#!/bin/bash
+
+INS=$1;
+if [ -z "$INS" ]; then
+        echo "Usage: $0 [ server ]";
+        exit 9;
+fi
+
+BINPATH=/usr/local/mongodb/${INS}/product/bin
+CONFPATH=/usr/local/mongodb/${INS}/conf/${INS}.conf
+
+if [ -e ${CONFPATH} ]; then
+        ${BINPATH}/mongod --config ${CONFPATH}
+else
+        echo "${CONFPATH} is not exists";
+        exit 9;
+fi
+

@@ -1,0 +1,11 @@
+Vagrant::Config.run do |config|
+  config.vm.box = "mongors" 
+  config.vm.define :rs1 do |config|
+    config.vm.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "1", "--name", "mongors1"]
+    config.vm.network :hostonly, "192.168.56.100", :netmask => "255.255.255.0"
+    config.vm.provision :chef_solo do |chef|
+       chef.cookbooks_path = "./chef-repo/cookbooks"
+       chef.add_recipe "mongodb"
+    end
+  end
+end
